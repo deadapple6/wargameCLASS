@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject patientPrefab;
+    
     void Start()
     {
-        InvokeRepeating("SpawnPatient, 2f, 5f"); // Start after 2 seconds, repeat every 5 seconds
-        
+        // Start after 2 seconds, repeat every 5 seconds
+        InvokeRepeating("SpawnPatient", 2f, 4f);
     }
-
-
+    
     void SpawnPatient()
     {
-        float randomY = Random.Range(-3.5f, 3.5f);
-        Vector3 spawnPosition = new Vector3(Vector3(8f, randomY, 0f));
-        Instantiate(Patient, spawnPosition, Quaternion.identity);
+        float randomY = Random.Range(-1.25f, 1.25f);
+        Vector3 spawnPosition = new Vector3(8f, randomY, 0f);
+        Instantiate(patientPrefab, spawnPosition, Quaternion.identity);
     }
 }

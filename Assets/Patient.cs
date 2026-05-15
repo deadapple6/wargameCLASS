@@ -10,8 +10,9 @@ public class Patient : MonoBehaviour
     {
         if (isHealed)
         {
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
-            if (transform.position.x > 10f) Destroy(gameObject);
+            // MOVES DOWN instead of right
+            transform.Translate(Vector2.down * speed * Time.deltaTime);
+            if (transform.position.y < -6f) Destroy(gameObject);
             return;
         }
         
