@@ -20,9 +20,9 @@ public class Patient : MonoBehaviour
         transform.Translate(Vector2.left * speed * Time.deltaTime);
     }
     
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.CompareTag("Wall")) atWall = true;
+        if (other.gameObject.CompareTag("Wall")) atWall = true;
     }
     
     public void Heal()
