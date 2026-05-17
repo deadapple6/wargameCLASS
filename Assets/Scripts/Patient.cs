@@ -21,6 +21,7 @@ public class Patient : MonoBehaviour
     void Update()
     {
         // Healed - move down
+        
         if (isHealed)
         {
             transform.Translate(Vector2.down * speed * Time.deltaTime);
