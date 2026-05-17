@@ -3,7 +3,7 @@ using UnityEngine;
 public class Patient : MonoBehaviour
 {
     public float speed = 2f;
-    public float timeToHeal = 5f;  // Seconds before patient dies
+    public float timeToHeal = 5f;
     
     private bool isHealed = false;
     private bool atWall = false;
@@ -15,11 +15,12 @@ public class Patient : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = Color.red;
         currentTimer = timeToHeal;
+        Debug.Log("Patient spawned");
     }
     
     void Update()
     {
-        // If healed, move DOWN off screen
+        // Healed - move down
         if (isHealed)
         {
             transform.Translate(Vector2.down * speed * Time.deltaTime);
@@ -27,63 +28,63 @@ public class Patient : MonoBehaviour
             return;
         }
         
-        // Timer: Only count down when at the wall (waiting to be healed)
-        if (atWall && !isHealed)
+        // At wall - countdown timer
+        if (atWall)
         {
             currentTimer -= Time.deltaTime;
             
-            // Visual feedback - show urgency!
-            float timePercent = currentTimer / timeToHeal;
-            
-            if (timePercent < 0.3f)
+            // Flash when almost dead
+            if (currentTimer < 1f)
             {
-                // Rapid flash when almost dead
                 float flash = Mathf.PingPong(Time.time * 10f, 0.5f);
                 spriteRenderer.color = flash > 0.25f ? Color.red : Color.white;
             }
-            else if (timePercent < 0.6f)
-            {
-                // Pulse darker red when half time left
-                float pulse = Mathf.PingPong(Time.time * 2f, 0.3f);
-                spriteRenderer.color = Color.Lerp(Color.red, new Color(0.5f, 0f, 0f), pulse);
-            }
             
-            // TIME'S UP!
             if (currentTimer <= 0f)
             {
                 Die();
             }
+            return;
         }
         
-        if (atWall) return;
-        
-        // Move LEFT toward wall
+        // Move left toward wall
         transform.Translate(Vector2.left * speed * Time.deltaTime);
     }
     
     void OnCollisionEnter2D(Collision2D other)
     {
+        Debug.Log("Hit: " + other.gameObject.name);
+        
         if (other.gameObject.CompareTag("Wall"))
         {
             atWall = true;
-            Debug.Log("Patient at wall! " + timeToHeal + " seconds to heal!");
+            Debug.Log("Reached wall! Timer started.");
         }
+    }
+    
+    public bool CanBeHealed()
+    {
+        return atWall && !isHealed && currentTimer > 0;
     }
     
     public void Heal()
     {
-        if (atWall && !isHealed && currentTimer > 0)
+        if (CanBeHealed())
         {
             isHealed = true;
             spriteRenderer.color = Color.green;
-            Debug.Log("Patient HEALED with " + currentTimer.ToString("F1") + " seconds left!");
+            Debug.Log("PATIENT HEALED!");
         }
     }
     
     void Die()
     {
-        Debug.Log("Patient DIED from waiting too long!");
+        Debug.Log("Patient died!");
         spriteRenderer.color = Color.gray;
+        
+        if (GameManager.Instance != null)
+            GameManager.Instance.PatientDied();
+        
         Destroy(gameObject, 0.5f);
     }
 }

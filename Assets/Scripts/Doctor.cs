@@ -3,7 +3,6 @@ using UnityEngine;
 public class Doctor : MonoBehaviour
 {
     public float speed = 5f;
-    public float healRange = 3f;  // Increased from 1.5 to 3
     
     void Update()
     {
@@ -14,29 +13,31 @@ public class Doctor : MonoBehaviour
         
         transform.Translate(0, moveY * speed * Time.deltaTime, 0);
         
-        // Keep on screen
+        // Keep doctor on screen
         float clampedY = Mathf.Clamp(transform.position.y, -4f, 4f);
         transform.position = new Vector3(transform.position.x, clampedY, transform.position.z);
         
-        // Heal
+        // Heal with Space
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            Debug.Log("=== SPACE PRESSED ===");
+            Debug.Log("Doctor position: " + transform.position);
+            
             GameObject[] patients = GameObject.FindGameObjectsWithTag("Patient");
+            Debug.Log("Found " + patients.Length + " patients");
             
             foreach (GameObject p in patients)
             {
                 float distance = Vector2.Distance(transform.position, p.transform.position);
-                Debug.Log("Distance to patient: " + distance);
+                Patient patient = p.GetComponent<Patient>();
                 
-                // Now heals within 3 units instead of 1.5
-                if (distance < healRange)
+                Debug.Log("Patient at Y:" + p.transform.position.y + " | Distance: " + distance + " | CanBeHealed: " + patient.CanBeHealed());
+                
+                if (patient != null && patient.CanBeHealed() && distance < 3.5f)
                 {
-                    Patient patient = p.GetComponent<Patient>();
-                    if (patient != null)
-                    {
-                        patient.Heal();
-                        break;
-                    }
+                    Debug.Log("★★★ HEALING! ★★★");
+                    patient.Heal();
+                    break;
                 }
             }
         }
