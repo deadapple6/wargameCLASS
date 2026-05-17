@@ -89,3 +89,5 @@ public class Patient : MonoBehaviour
         Destroy(gameObject, 0.5f);
     }
 }
+
+//testing testing
