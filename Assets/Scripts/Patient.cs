@@ -6,11 +6,15 @@ public class Patient : MonoBehaviour
     private bool isHealed = false;
     private bool atWall = false;
     
+    void Start()
+    {
+        GetComponent<SpriteRenderer>().color = Color.red;
+    }
+    
     void Update()
     {
         if (isHealed)
         {
-            // MOVES DOWN instead of right
             transform.Translate(Vector2.down * speed * Time.deltaTime);
             if (transform.position.y < -6f) Destroy(gameObject);
             return;
@@ -23,15 +27,24 @@ public class Patient : MonoBehaviour
     
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Wall")) atWall = true;
+        Debug.Log("Hit: " + other.gameObject.name + " with tag: " + other.gameObject.tag);
+        
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            atWall = true;
+            Debug.Log("Patient at wall = TRUE");
+        }
     }
     
     public void Heal()
     {
+        Debug.Log("Heal() called - atWall=" + atWall + ", isHealed=" + isHealed);
+        
         if (atWall && !isHealed)
         {
             isHealed = true;
             GetComponent<SpriteRenderer>().color = Color.green;
+            Debug.Log("PATIENT HEALED!");
         }
     }
 }
