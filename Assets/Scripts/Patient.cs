@@ -9,6 +9,7 @@ public class Patient : MonoBehaviour
     private bool atWall = false;
     private float currentTimer;
     private SpriteRenderer spriteRenderer;
+    private bool isDying = false;  // ADDED - prevents double death
     
     void Start()
     {
@@ -21,7 +22,6 @@ public class Patient : MonoBehaviour
     void Update()
     {
         // Healed - move down
-        
         if (isHealed)
         {
             transform.Translate(Vector2.down * speed * Time.deltaTime);
@@ -80,6 +80,9 @@ public class Patient : MonoBehaviour
     
     void Die()
     {
+        if (isDying) return;  // ADDED - prevents double death
+        isDying = true;       // ADDED
+        
         Debug.Log("Patient died!");
         spriteRenderer.color = Color.gray;
         
@@ -89,5 +92,3 @@ public class Patient : MonoBehaviour
         Destroy(gameObject, 0.5f);
     }
 }
-
-//testing testing
