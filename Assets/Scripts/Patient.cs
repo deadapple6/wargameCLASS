@@ -9,7 +9,7 @@ public class Patient : MonoBehaviour
     private bool atWall = false;
     private float currentTimer;
     private SpriteRenderer spriteRenderer;
-    private bool isDying = false;  // ADDED - prevents double death
+    private bool isDying = false;  //prevents double death
     
     void Start()
     {
@@ -80,8 +80,8 @@ public class Patient : MonoBehaviour
     
     void Die()
     {
-        if (isDying) return;  // ADDED - prevents double death
-        isDying = true;       // ADDED
+        if (isDying) return;  // prevents double death
+        isDying = true;      
         
         Debug.Log("Patient died!");
         spriteRenderer.color = Color.gray;
