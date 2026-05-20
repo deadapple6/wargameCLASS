@@ -3441,6 +3441,7 @@ GameObject:
   - component: {fileID: 612988765}
   - component: {fileID: 612988763}
   - component: {fileID: 612988767}
+  - component: {fileID: 612988768}
   m_Layer: 5
   m_Name: StartScreenCanvas
   m_TagString: Untagged
@@ -3522,6 +3523,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c4d1bc6463ff6e4e87ac0ed0940b725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIScaler
+--- !u!114 &612988768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612988762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0.5
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -3666,13 +3690,14 @@ GameObject:
   - component: {fileID: 780799180}
   - component: {fileID: 780799179}
   - component: {fileID: 780799184}
+  - component: {fileID: 780799185}
   m_Layer: 5
   m_Name: GameOverCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &780799179
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3755,6 +3780,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c4d1bc6463ff6e4e87ac0ed0940b725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIScaler
+--- !u!114 &780799185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780799178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0.5
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!1001 &815576477
 PrefabInstance:
   m_ObjectHideFlags: 0

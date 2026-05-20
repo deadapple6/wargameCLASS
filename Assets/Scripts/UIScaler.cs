@@ -5,6 +5,10 @@ public class UIScaler : MonoBehaviour
 {
     void Awake()
     {
+        // Force fullscreen
+        Screen.fullScreen = true;
+        Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
+        
         // Force canvas to overlay mode
         Canvas canvas = GetComponent<Canvas>();
         if (canvas != null)
