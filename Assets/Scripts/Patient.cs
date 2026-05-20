@@ -2,26 +2,24 @@ using UnityEngine;
 
 public class Patient : MonoBehaviour
 {
-    public float speed = 2f;
-    public float timeToHeal = 5f;
+    public float speed = 3.5f;  //
+    public float timeToHealAtWall = 4f;  // 4 seconds to heal 
     
     private bool isHealed = false;
     private bool atWall = false;
     private float currentTimer;
     private SpriteRenderer spriteRenderer;
-    private bool isDying = false;  //prevents double death
+    private bool isDying = false;
     
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.color = Color.red;
-        currentTimer = timeToHeal;
-        Debug.Log("Patient spawned");
+        currentTimer = timeToHealAtWall;
     }
     
     void Update()
     {
-        // Healed - move down
         if (isHealed)
         {
             transform.Translate(Vector2.down * speed * Time.deltaTime);
@@ -29,13 +27,13 @@ public class Patient : MonoBehaviour
             return;
         }
         
-        // At wall - countdown timer
+        // Timer ONLY runs when at wall
         if (atWall)
         {
             currentTimer -= Time.deltaTime;
             
-            // Flash when almost dead
-            if (currentTimer < 1f)
+            // Flash when about to die
+            if (currentTimer < 0.8f)
             {
                 float flash = Mathf.PingPong(Time.time * 10f, 0.5f);
                 spriteRenderer.color = flash > 0.25f ? Color.red : Color.white;
@@ -44,9 +42,11 @@ public class Patient : MonoBehaviour
             if (currentTimer <= 0f)
             {
                 Die();
+                return;
             }
-            return;
         }
+        
+        if (atWall) return;
         
         // Move left toward wall
         transform.Translate(Vector2.left * speed * Time.deltaTime);
@@ -54,12 +54,10 @@ public class Patient : MonoBehaviour
     
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("Hit: " + other.gameObject.name);
-        
         if (other.gameObject.CompareTag("Wall"))
         {
             atWall = true;
-            Debug.Log("Reached wall! Timer started.");
+            Debug.Log("Patient reached wall! Heal within " + timeToHealAtWall + " seconds!");
         }
     }
     
@@ -80,8 +78,8 @@ public class Patient : MonoBehaviour
     
     void Die()
     {
-        if (isDying) return;  // prevents double death
-        isDying = true;      
+        if (isDying) return;
+        isDying = true;
         
         Debug.Log("Patient died!");
         spriteRenderer.color = Color.gray;
