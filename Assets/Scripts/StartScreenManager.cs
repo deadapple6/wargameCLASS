@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartScreenManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class StartScreenManager : MonoBehaviour
         // Pause the game
         Time.timeScale = 0f;
         
-        // Disable spawner and doctor movement
+        // Disable game
         if (spawner != null) spawner.SetActive(false);
         if (doctor != null) doctor.GetComponent<Doctor>().enabled = false;
     }
@@ -34,14 +35,11 @@ public class StartScreenManager : MonoBehaviour
         if (doctor != null) doctor.GetComponent<Doctor>().enabled = true;
     }
     
-    public void QuitGame()
+    public void QuitToMainMenu()
     {
-        // Works in built game
-        Application.Quit();
-        
-        // For testing in Unity Editor
-        #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+   // reset time
+   Time.timeScale = 1f; 
+   // reloads scene
+   SceneManager.LoadScene("SampleScene");
     }
 }
